@@ -6,7 +6,7 @@ package org.isen.CIR3.Paper_News_GGH
 class App {
     val greeting: String
         get() {
-            return "Hello world."
+            return "Hello world. Projet paper news GGH"
         }
 }
 
