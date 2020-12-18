@@ -3,13 +3,24 @@
  */
 package org.isen.CIR3.Paper_News_GGH
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello world. Projet paper news GGH"
-        }
+import org.apache.logging.log4j.kotlin.Logging
+import org.isen.CIR3.Paper_News_GGH.data.ArticleData
+import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
+
+class App  {
+    companion object : Logging
+    fun logLaunch(){
+        logger.info("App Started")
+    }
 }
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+    App().logLaunch()
+
+    //exemple de recherche qu'on peut imaginer iterer sur les differentes category proposées par le newsAPI
+    val test= NewsSearchEngine("fr","sport",null)
+    for ( e in test.newsResult?.articles!!){
+        println(e.title)
+    }
+
 }

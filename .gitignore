@@ -3,3 +3,6 @@
 
 # Ignore Gradle build output directory
 build
+
+#ignore Paper_News_GGH.log parceque ca va créer des conflits
+Paper_News_GGH.log
