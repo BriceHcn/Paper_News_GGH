@@ -4,7 +4,5 @@ data class ConfigData(
         val apiKey:String,
         val defaultLanguage:String,
         val categoryList:ArrayList<String>,
-        val countryList:ArrayList<String>
-) {
-
+        val countryList:ArrayList<String>) {
 }

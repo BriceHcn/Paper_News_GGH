@@ -4,7 +4,11 @@
 package org.isen.CIR3.Paper_News_GGH
 
 import org.apache.logging.log4j.kotlin.Logging
+import org.isen.CIR3.Paper_News_GGH.data.ConfigData
+import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
 import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
+import org.isen.CIR3.Paper_News_GGH.searchEngine.ReadConfigFile
+import org.isen.CIR3.Paper_News_GGH.view.MainView
 
 class App  {
     companion object : Logging
@@ -16,11 +20,21 @@ class App  {
 fun main(args: Array<String>) {
     App().logLaunch()
 
-    //exemple de recherche qu'on peut imaginer iterer sur les differentes category proposées par le newsAPI
-    val test= NewsSearchEngine("gb","business",null)
-    for ( e in test.newsResult?.articles!!){
-        println(e.title)
+    //exemple de recherche ou l'on cherche toute les news sur toutes le categories de l'api
+    val cfg:ConfigData = ReadConfigFile().cfg
+    for(category in cfg.categoryList){
+        println("----------------------$category---------------------------------")
+        val test= NewsSearchEngine(null,category  ,null)
+        for ( e in test.newsResult?.articles!!){
+            println(e.title)
+        }
     }
+
+    //lancement fenetre graphique principale
+    val mainWindow=MainView()
+
+    //test ouvrir un lien dans le navigateur
+    //val test3=OpenInBrowser("www.google.com")
 
 
 }
