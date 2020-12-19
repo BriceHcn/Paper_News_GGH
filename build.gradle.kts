@@ -24,6 +24,10 @@ repositories {
 }
 
 dependencies {
+    //hoplite pour le fichier de config
+    implementation ("com.sksamuel.hoplite:hoplite-core:1.3.10")
+    implementation ("com.sksamuel.hoplite:hoplite-yaml:1.3.10")
+
     //GSON
     implementation("com.google.code.gson:gson:2.8.6")
 
@@ -48,7 +52,10 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+
+
 }
+
 
 application {
     // Define the main class for the application.
@@ -57,4 +64,6 @@ application {
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     languageVersion = "1.4"
+    jvmTarget = "1.8"
+
 }
