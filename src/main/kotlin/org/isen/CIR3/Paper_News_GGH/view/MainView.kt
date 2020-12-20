@@ -1,6 +1,9 @@
 package org.isen.CIR3.Paper_News_GGH.view
 
 import org.apache.logging.log4j.kotlin.Logging
+import org.isen.CIR3.Paper_News_GGH.data.ConfigData
+import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
+import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
 import org.isen.CIR3.Paper_News_GGH.searchEngine.OpenInBrowser
 import java.awt.BorderLayout
 import java.awt.Color
@@ -11,7 +14,7 @@ import java.awt.event.ActionListener
 import javax.swing.*
 import kotlin.system.exitProcess
 
-class MainView : JFrame(), ActionListener {
+class MainView(cfg: ConfigData) : JFrame(), ActionListener {
     //logger
     companion object : Logging
 
@@ -37,7 +40,7 @@ class MainView : JFrame(), ActionListener {
 
 
         //layout principal
-        private val layoutMainView=GridLayout(1,2)
+        private val layoutMainView=BorderLayout()
 
         //partie categories
         private val panelCategories=JPanel(GridLayout(7,1))
@@ -65,13 +68,25 @@ class MainView : JFrame(), ActionListener {
         //initialisation layout principal
         this.layout=layoutMainView
 
-        panelCategories.preferredSize= Dimension(110,580)
-        panelCategories.background= Color.YELLOW
-        this.add(panelCategories)
 
-        scrollPane.preferredSize= Dimension(660,580)
+        //ajout paneau categories
+        panelCategories.background= Color.YELLOW
+        this.add(panelCategories,BorderLayout.LINE_START)
+        for (category in cfg.categoryList){
+            val CatBtn = JButton(category).apply {
+                actionCommand = category
+                addActionListener(CatButtonClickListener())
+
+            }
+            CatBtn.preferredSize= Dimension(120,85)
+            panelCategories.add(CatBtn)
+        }
+
+
+
+        //ajout panneau articles
         panelArticles.background= Color.BLUE
-        this.add(scrollPane)
+        this.add(scrollPane,BorderLayout.CENTER)
 
 
 
@@ -79,7 +94,7 @@ class MainView : JFrame(), ActionListener {
         //parametre generale de la fenetre
         title = "Paper News GGH"
         setSize(770, 580)
-        this.setLocation(30, -1000)//TODO remove for prod
+        //this.setLocation(30, -1000)//TODO remove for prod
         this.defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
@@ -89,6 +104,8 @@ class MainView : JFrame(), ActionListener {
     override fun actionPerformed(e: ActionEvent?) {
     }
 
+
+    //actionneur pour le menu
     private inner class MenuButtonClickListener : ActionListener {
         override fun actionPerformed(e: ActionEvent) {
             when (e.actionCommand) {
@@ -101,6 +118,16 @@ class MainView : JFrame(), ActionListener {
         }
     }
 
+    //actionneur pour les categories
+    private inner class CatButtonClickListener : ActionListener {
+        override fun actionPerformed(e: ActionEvent) {
+            println("-----------------${e.actionCommand}----------------------------")
+            val newsFromCat: NewsSearchData? =NewsSearchEngine(null,e.actionCommand  ,null).newsResult
+            for(s in newsFromCat?.articles!!){
+                println(s.title)
+            }
+        }
+    }
 
 
 }
