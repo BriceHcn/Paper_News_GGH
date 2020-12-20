@@ -4,6 +4,7 @@ import com.github.kittinunf.fuel.httpGet
 import org.apache.logging.log4j.kotlin.Logging
 import org.isen.CIR3.Paper_News_GGH.data.ConfigData
 import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
+import java.lang.System.exit
 
 class NewsSearchEngine(
         private val pays:String?,
@@ -23,9 +24,14 @@ class NewsSearchEngine(
         val(request,response,result)="https://newsapi.org/v2/top-headlines?apiKey=${cfg?.apiKey}${getCountry()}${formatedCategory()}${formatedKeywords()}"
                 .httpGet().responseObject(NewsSearchData.Deserializer())
 
+
         logger.info("Request sent - url : ${request.url}")
         logger.info("the response is : ${response.responseMessage}(code ${response.statusCode})")
-
+        logger.info("${result.component1()?.totalResults} result for : ${formatedCategory()}")
+        if(response.statusCode == 429){
+            logger.info("Too much API Request Today ")
+            exit(0)
+        }
         return result.component1()
     }
 

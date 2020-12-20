@@ -11,12 +11,14 @@ import java.awt.Dimension
 import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 import javax.swing.*
 import javax.swing.plaf.basic.BasicTabbedPaneUI
 import kotlin.system.exitProcess
 
 
-class MainView(cfg: ConfigData) : JFrame(), ActionListener {
+class MainView(cfg: ConfigData) : JFrame(), ActionListener{
     //logger
     companion object : Logging
 
@@ -41,8 +43,8 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
         addActionListener(MenuButtonClickListener()) }
 
 
-        //layout principal
-        private val layoutMainView=BorderLayout()
+    //layout principal
+    private val layoutMainView=BorderLayout()
 
 
     init{
@@ -61,11 +63,11 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
         //initialisation layout principal
         this.layout=layoutMainView
 
-        //initialisation onglet
+        //initialisation onglets
         val tabbedPane = JTabbedPane(JTabbedPane.LEFT)
         for(cat in cfg.categoryList){
-            val panel =JPanel(BorderLayout())
-            panel.add(JLabel("article sur $cat:"),BorderLayout.PAGE_START)
+            //ajout de chaque panneau comprenant les news
+            val panel = panelNewsMaker(cat)
             tabbedPane.add(cat,panel)
         }
         this.add(tabbedPane, BorderLayout.CENTER);
@@ -73,17 +75,33 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
 
         //parametre generale de la fenetre
         title = "Paper News GGH"
-        setSize(770, 580)
+        setSize(1500, 580)
         //this.setLocation(30, -1000)//TODO remove for prod
         this.defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
 
+    private fun panelNewsMaker(cat:String):JPanel{
+      var newsData: NewsSearchData? =NewsSearchEngine(null,cat  ,null).newsResult
+      var tabArticles=JPanel(GridLayout(newsData?.articles?.size!!,1))
+        for ( e in newsData.articles){
+            var ligne = JPanel(BorderLayout())
+            ligne.add(JLabel(e.title),BorderLayout.CENTER)
 
+
+            var button:JButton=JButton("See more")
+            button.preferredSize= Dimension(100,5)
+            ligne.add(button,BorderLayout.LINE_END)
+
+            tabArticles.add(ligne)
+        }
+
+        return tabArticles
+
+    }
 
     override fun actionPerformed(e: ActionEvent?) {
     }
-
 
     //actionneur pour le menu
     private inner class MenuButtonClickListener : ActionListener {
@@ -97,5 +115,6 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
             }
         }
     }
+
 
 }
