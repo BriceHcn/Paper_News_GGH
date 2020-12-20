@@ -12,7 +12,9 @@ import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
+import javax.swing.plaf.basic.BasicTabbedPaneUI
 import kotlin.system.exitProcess
+
 
 class MainView(cfg: ConfigData) : JFrame(), ActionListener {
     //logger
@@ -42,15 +44,6 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
         //layout principal
         private val layoutMainView=BorderLayout()
 
-        //partie categories
-        private val panelCategories=JPanel(GridLayout(7,1))
-
-        //partie articles
-        private val panelArticles=JPanel(GridLayout(34,1))
-            //pour que ça soit scrollable
-        private val scrollPane = JScrollPane(panelArticles)
-            //un article
-        private val panelArticle=JPanel(BorderLayout())
 
     init{
         //ajout icone d'application
@@ -68,27 +61,14 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
         //initialisation layout principal
         this.layout=layoutMainView
 
-
-        //ajout paneau categories
-        panelCategories.background= Color.YELLOW
-        this.add(panelCategories,BorderLayout.LINE_START)
-        for (category in cfg.categoryList){
-            val CatBtn = JButton(category).apply {
-                actionCommand = category
-                addActionListener(CatButtonClickListener())
-
-            }
-            CatBtn.preferredSize= Dimension(120,85)
-            panelCategories.add(CatBtn)
+        //initialisation onglet
+        val tabbedPane = JTabbedPane(JTabbedPane.LEFT)
+        for(cat in cfg.categoryList){
+            val panel =JPanel(BorderLayout())
+            panel.add(JLabel("article sur $cat:"),BorderLayout.PAGE_START)
+            tabbedPane.add(cat,panel)
         }
-
-
-
-        //ajout panneau articles
-        panelArticles.background= Color.BLUE
-        this.add(scrollPane,BorderLayout.CENTER)
-
-
+        this.add(tabbedPane, BorderLayout.CENTER);
 
 
         //parametre generale de la fenetre
@@ -117,17 +97,5 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener {
             }
         }
     }
-
-    //actionneur pour les categories
-    private inner class CatButtonClickListener : ActionListener {
-        override fun actionPerformed(e: ActionEvent) {
-            println("-----------------${e.actionCommand}----------------------------")
-            val newsFromCat: NewsSearchData? =NewsSearchEngine(null,e.actionCommand  ,null).newsResult
-            for(s in newsFromCat?.articles!!){
-                println(s.title)
-            }
-        }
-    }
-
 
 }
