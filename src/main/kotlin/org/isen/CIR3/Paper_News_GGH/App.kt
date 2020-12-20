@@ -16,28 +16,13 @@ class App  {
 }
 
 fun main(args: Array<String>) {
+    //on log le lancement de l'application, ça fait plaisir
     App().logLaunch()
     val cfg:ConfigData = ReadConfigFile().cfg
-
-
-    /*
-    //exemple de recherche ou l'on cherche toute les news sur toutes le categories de l'api
-    val cfg:ConfigData = ReadConfigFile().cfg
-    for(category in cfg.categoryList){
-        println("----------------------$category---------------------------------")
-        val test= NewsSearchEngine(null,category  ,null)
-        for ( e in test.newsResult?.articles!!){
-            println(e.title)
-        }
-    }
-
-     */
 
     //lancement fenetre graphique principale
     val mainWindow=MainView(cfg)
 
     //test ouvrir un lien dans le navigateur
     //val test3=OpenInBrowser("www.google.com")
-
-
 }

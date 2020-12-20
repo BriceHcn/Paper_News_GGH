@@ -17,17 +17,18 @@ class NewsSearchEngine(
         get() {
             return this.searchNewsWithSpecifiedSettings()
         }
+    //lecture fichier de config
     private val cfg:ConfigData=ReadConfigFile().cfg
-
 
     private fun searchNewsWithSpecifiedSettings(): NewsSearchData? {
         val(request,response,result)="https://newsapi.org/v2/top-headlines?apiKey=${cfg?.apiKey}${getCountry()}${formatedCategory()}${formatedKeywords()}"
                 .httpGet().responseObject(NewsSearchData.Deserializer())
 
-
         logger.info("Request sent - url : ${request.url}")
         logger.info("the response is : ${response.responseMessage}(code ${response.statusCode})")
-        logger.info("${result.component1()?.totalResults} result for : ${formatedCategory()}")
+        logger.info("${result.component1()?.articles?.size}(over ${result.component1()?.totalResults} total) result for : ${formatedCategory()}")
+
+        //si limite API atteinte
         if(response.statusCode == 429){
             logger.info("Too much API Request Today ")
             exit(0)
@@ -35,14 +36,17 @@ class NewsSearchEngine(
         return result.component1()
     }
 
+    //pour choisir une categorie ou pas
     private fun formatedCategory(): String {
         return if (category==null) "" else "&category=$category"
     }
 
+    //pour choisir des mots clés ou pas
     private fun formatedKeywords():String{
         return if (keywords==null) "" else "&q=$keywords"
     }
 
+    //pour choisir un pays ou prendre celui par defaut(sans rien on a des resultats en chinois,etc..)
     private fun getCountry():String{
         return if (pays==null) "&country=${cfg?.defaultLanguage}" else "&country=$pays"
     }

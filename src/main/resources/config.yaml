@@ -5,12 +5,12 @@ defaultLanguage: fr
 
 categoryList:
   - general
-  - health
   - sports
   - science
   - technology
   - entertainment
   - business
+  - health
 
 countryList:
   - ae

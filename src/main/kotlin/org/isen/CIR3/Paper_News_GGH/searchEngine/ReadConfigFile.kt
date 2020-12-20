@@ -7,6 +7,7 @@ class ReadConfigFile {
     val cfg:ConfigData
 
     init {
+        //TODO remettre logger mais sur une ligne sinon c'est relou
         //NewsSearchEngine.logger.info("---------------------------------config file reading-------------------------------------------")
         this.cfg= ConfigLoader().loadConfigOrThrow<ConfigData>("/config.yaml")
         //NewsSearchEngine.logger.info("api key found : ${cfg!!.apiKey}")

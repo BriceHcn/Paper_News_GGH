@@ -6,19 +6,15 @@ import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
 import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
 import org.isen.CIR3.Paper_News_GGH.searchEngine.OpenInBrowser
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
 import javax.swing.*
-import javax.swing.plaf.basic.BasicTabbedPaneUI
 import kotlin.system.exitProcess
 
 
-class MainView(cfg: ConfigData) : JFrame(), ActionListener{
+class MainView(cfg: ConfigData) : JFrame(){
     //logger
     companion object : Logging
 
@@ -46,7 +42,7 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener{
     //layout principal
     private val layoutMainView=BorderLayout()
 
-
+    //initialisation fenetre graphique
     init{
         //ajout icone d'application
         this.iconImage = img.image//TODO ajouter un image d'icone
@@ -70,7 +66,7 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener{
             val panel = panelNewsMaker(cat)
             tabbedPane.add(cat,panel)
         }
-        this.add(tabbedPane, BorderLayout.CENTER);
+        this.add(tabbedPane, BorderLayout.CENTER)
 
 
         //parametre generale de la fenetre
@@ -81,27 +77,28 @@ class MainView(cfg: ConfigData) : JFrame(), ActionListener{
         isVisible = true
     }
 
+
+    //fonction qui creer des panels pour chaque categorie
     private fun panelNewsMaker(cat:String):JPanel{
-      var newsData: NewsSearchData? =NewsSearchEngine(null,cat  ,null).newsResult
-      var tabArticles=JPanel(GridLayout(newsData?.articles?.size!!,1))
+        //on recupere les données
+      val newsData: NewsSearchData? =NewsSearchEngine(null,cat  ,null).newsResult
+
+      val tabArticles=JPanel(GridLayout(newsData?.articles?.size!!,1))
         for ( e in newsData.articles){
-            var ligne = JPanel(BorderLayout())
+            val ligne = JPanel(BorderLayout())
+            //ajout titre news
             ligne.add(JLabel(e.title),BorderLayout.CENTER)
 
-
-            var button:JButton=JButton("See more")
-            button.preferredSize= Dimension(100,5)
+            val button=JButton("See more")
+            button.preferredSize= Dimension(100,5)//TODO ajouter action sur le bouton pour ouvrir nouvelle fenetre
+            //ajout bouton voir plus
             ligne.add(button,BorderLayout.LINE_END)
 
             tabArticles.add(ligne)
         }
-
         return tabArticles
-
     }
 
-    override fun actionPerformed(e: ActionEvent?) {
-    }
 
     //actionneur pour le menu
     private inner class MenuButtonClickListener : ActionListener {
