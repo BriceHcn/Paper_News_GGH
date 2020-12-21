@@ -54,7 +54,7 @@ class ArticleView(article:ArticleData):JFrame() {
         this.add(panelImg)
 
 
-        this.add(labelTitre)
+        this.add(labelTitre)//TODO continuer ici
 
 
 
