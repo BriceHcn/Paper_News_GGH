@@ -39,12 +39,16 @@ class MainView(cfg: ConfigData) : JFrame(){
         actionCommand = "NEWSAPI_LINK"
         addActionListener(MenuButtonClickListener()) }
 
+    //fenetre a onglet
+    private val tabbedPane = JTabbedPane(JTabbedPane.LEFT)
+
 
     //layout principal
     private val layoutMainView=BorderLayout()
 
     //initialisation fenetre graphique
     init{
+        logger.info("Opening window : main window")
         //ajout icone d'application
         this.iconImage = img.image
 
@@ -61,7 +65,7 @@ class MainView(cfg: ConfigData) : JFrame(){
         this.layout=layoutMainView
 
         //initialisation onglets
-        val tabbedPane = JTabbedPane(JTabbedPane.LEFT)
+
         for(cat in cfg.categoryList){
             //ajout de chaque panneau comprenant les news
             val panel = panelNewsMaker(cat)
@@ -73,7 +77,6 @@ class MainView(cfg: ConfigData) : JFrame(){
         //parametre generale de la fenetre
         title = "Paper News GGH"
         setSize(1100, 580)
-        //this.setLocation(30, -1000)//TODO remove for prod
         this.defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
@@ -112,7 +115,7 @@ class MainView(cfg: ConfigData) : JFrame(){
     private inner class ArticleButtonClickListener(private var article: ArticleData): ActionListener {
         override fun actionPerformed(e: ActionEvent) {
             if(e.actionCommand=="OPEN_ARTICLE")
-            logger.info("Opening article : ${article.title.subSequence(0,100)}...")
+            logger.info("Opening article : ${article.title}...")
             //TODO ouvrir fenetre qui presente cet article
         }
     }
@@ -122,7 +125,7 @@ class MainView(cfg: ConfigData) : JFrame(){
         override fun actionPerformed(e: ActionEvent) {
             when (e.actionCommand) {
                 "QUIT" -> exitProcess(0)
-                "ABOUT_US" -> null //TODO ouvrir une fenetre avec les membres de l'equipe
+                "ABOUT_US" -> AboutView() //TODO ouvrir une fenetre avec les membres de l'equipe
                 "ISEN_LINK" -> OpenInBrowser("www.isen-mediterranee.fr")
                 "NEWSAPI_LINK" -> OpenInBrowser("https://newsapi.org")
                 else -> logger.info("clic sur un bouton incconu")
