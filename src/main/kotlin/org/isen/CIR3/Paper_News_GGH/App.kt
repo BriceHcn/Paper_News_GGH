@@ -18,6 +18,7 @@ class App  {
 fun main(args: Array<String>) {
     //on log le lancement de l'application, ça fait plaisir
     App().logLaunch()
+    //recuperation fichier de config
     val cfg:ConfigData = ReadConfigFile().cfg
 
     //lancement fenetre graphique principale

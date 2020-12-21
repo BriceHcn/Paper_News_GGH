@@ -1,6 +1,7 @@
 package org.isen.CIR3.Paper_News_GGH.view
 
 import org.apache.logging.log4j.kotlin.Logging
+import org.isen.CIR3.Paper_News_GGH.data.ArticleData
 import org.isen.CIR3.Paper_News_GGH.data.ConfigData
 import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
 import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
@@ -19,7 +20,7 @@ class MainView(cfg: ConfigData) : JFrame(){
     companion object : Logging
 
     //icone application
-    private val img = ImageIcon(System.getProperty("user.dir") + "/src/main/resources/icone.png")
+    private val img = ImageIcon(System.getProperty("user.dir") + "/src/main/resources/icone.png")//TODO ajouter un image d'icone
 
     //menu
     private val menuBar: JMenuBar = JMenuBar()
@@ -45,7 +46,7 @@ class MainView(cfg: ConfigData) : JFrame(){
     //initialisation fenetre graphique
     init{
         //ajout icone d'application
-        this.iconImage = img.image//TODO ajouter un image d'icone
+        this.iconImage = img.image
 
         //initialisation menu
         menu1.add(menuItemQuit)
@@ -71,7 +72,7 @@ class MainView(cfg: ConfigData) : JFrame(){
 
         //parametre generale de la fenetre
         title = "Paper News GGH"
-        setSize(1500, 580)
+        setSize(1100, 580)
         //this.setLocation(30, -1000)//TODO remove for prod
         this.defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
@@ -83,22 +84,38 @@ class MainView(cfg: ConfigData) : JFrame(){
         //on recupere les données
       val newsData: NewsSearchData? =NewsSearchEngine(null,cat  ,null).newsResult
 
+        //on creer un tableau de la taille des données
       val tabArticles=JPanel(GridLayout(newsData?.articles?.size!!,1))
+        var articleIterator:Int=0
         for ( e in newsData.articles){
+            //pour chaque article, on affiche le titre et un bouton pour ouvrir cet article
             val ligne = JPanel(BorderLayout())
+
             //ajout titre news
             ligne.add(JLabel(e.title),BorderLayout.CENTER)
-
-            val button=JButton("See more")
-            button.preferredSize= Dimension(100,5)//TODO ajouter action sur le bouton pour ouvrir nouvelle fenetre
+            val button=JButton("See more").apply {
+                //ajout du listener pour chaque boutton avec comme parametre l'article en question
+                actionCommand = "OPEN_ARTICLE"
+                addActionListener(ArticleButtonClickListener(newsData?.articles[ articleIterator]))
+            }
+            button.setSize(Dimension(100,5))
             //ajout bouton voir plus
             ligne.add(button,BorderLayout.LINE_END)
-
-            tabArticles.add(ligne)
+            tabArticles.add(ligne)//on "ajoute" la ligne au tableau
+            articleIterator++
         }
         return tabArticles
     }
 
+
+    //actionneur pour les articles
+    private inner class ArticleButtonClickListener(private var article: ArticleData): ActionListener {
+        override fun actionPerformed(e: ActionEvent) {
+            if(e.actionCommand=="OPEN_ARTICLE")
+            logger.info("Opening article : ${article.title.subSequence(0,50)}...")
+            //TODO ouvrir fenetre qui presente cet article
+        }
+    }
 
     //actionneur pour le menu
     private inner class MenuButtonClickListener : ActionListener {
