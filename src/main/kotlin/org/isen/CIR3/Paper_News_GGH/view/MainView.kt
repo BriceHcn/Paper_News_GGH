@@ -112,7 +112,7 @@ class MainView(cfg: ConfigData) : JFrame(){
     private inner class ArticleButtonClickListener(private var article: ArticleData): ActionListener {
         override fun actionPerformed(e: ActionEvent) {
             if(e.actionCommand=="OPEN_ARTICLE")
-            logger.info("Opening article : ${article.title.subSequence(0,50)}...")
+            logger.info("Opening article : ${article.title.subSequence(0,100)}...")
             //TODO ouvrir fenetre qui presente cet article
         }
     }
