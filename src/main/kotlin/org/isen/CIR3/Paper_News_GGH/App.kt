@@ -22,5 +22,4 @@ fun main(args: Array<String>) {
     //lancement fenetre graphique principale
     App.logger.info("Opening window : main window")
     val mainWindow=MainView(cfg)
-    
 }
