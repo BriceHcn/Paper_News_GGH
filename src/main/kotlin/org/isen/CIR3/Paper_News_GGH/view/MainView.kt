@@ -115,7 +115,8 @@ class MainView(cfg: ConfigData) : JFrame(){
         override fun actionPerformed(e: ActionEvent) {
             if(e.actionCommand=="OPEN_ARTICLE")
             logger.info("Opening article : ${article.title}...")
-            //TODO ouvrir fenetre qui presente cet article
+            val artView:ArticleView= ArticleView(article)
+            isVisible=false
         }
     }
 
@@ -124,7 +125,7 @@ class MainView(cfg: ConfigData) : JFrame(){
         override fun actionPerformed(e: ActionEvent) {
             when (e.actionCommand) {
                 "QUIT" -> exitProcess(0)
-                "ABOUT_US" -> AboutView() //TODO ouvrir une fenetre avec les membres de l'equipe
+                "ABOUT_US" -> AboutView()
                 "ISEN_LINK" -> OpenInBrowser("www.isen-mediterranee.fr")
                 "NEWSAPI_LINK" -> OpenInBrowser("https://newsapi.org")
                 else -> logger.info("clic sur un bouton incconu")

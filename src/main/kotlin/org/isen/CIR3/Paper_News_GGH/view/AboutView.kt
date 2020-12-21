@@ -12,6 +12,9 @@ import javax.swing.JPanel
 class AboutView : JFrame(){
 
     companion object : Logging
+
+    //icone application
+    private val img = ImageIcon(System.getProperty("user.dir") + "/src/main/resources/icone.png")//TODO ajouter un image d'icone
     //elements fenetre
     private val aboutLayout = GridLayout(1,3)
     private val lucasPanel = JPanel(BorderLayout())
@@ -30,6 +33,9 @@ class AboutView : JFrame(){
 
     init{
         logger.info("Opening window : about us")
+
+        //ajout icone d'application
+        this.iconImage = img.image
 
         this.layout=aboutLayout
 

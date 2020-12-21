@@ -4,8 +4,12 @@
 package org.isen.CIR3.Paper_News_GGH
 
 import org.apache.logging.log4j.kotlin.Logging
+import org.isen.CIR3.Paper_News_GGH.data.ArticleData
 import org.isen.CIR3.Paper_News_GGH.data.ConfigData
+import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
+import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
 import org.isen.CIR3.Paper_News_GGH.searchEngine.ReadConfigFile
+import org.isen.CIR3.Paper_News_GGH.view.ArticleView
 import org.isen.CIR3.Paper_News_GGH.view.MainView
 
 class App  {
@@ -22,4 +26,9 @@ fun main(args: Array<String>) {
     //lancement fenetre graphique principale
     App.logger.info("Opening window : main window")
     val mainWindow=MainView(cfg)
+
+    //pour tester la fenetre article sans refaire toute les requete et donc griller mon apikey
+    //val newsData: NewsSearchData? = NewsSearchEngine(null, cfg.categoryList[0],null).newsResult
+    //val article:ArticleData= newsData!!.articles[0]
+    //val testArticleGui:ArticleView=ArticleView(article)
 }
