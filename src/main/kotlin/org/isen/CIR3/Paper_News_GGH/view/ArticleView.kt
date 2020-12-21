@@ -5,7 +5,6 @@ import org.isen.CIR3.Paper_News_GGH.data.ArticleData
 import org.isen.CIR3.Paper_News_GGH.searchEngine.ImgTools
 import org.isen.CIR3.Paper_News_GGH.searchEngine.OpenInBrowser
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridLayout
 import java.awt.event.ActionEvent
