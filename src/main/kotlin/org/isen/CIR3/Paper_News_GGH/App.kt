@@ -10,20 +10,17 @@ import org.isen.CIR3.Paper_News_GGH.view.MainView
 
 class App  {
     companion object : Logging
-    fun logLaunch(){
-        logger.info("Paper_News_GGH Started")
-    }
 }
 
 fun main(args: Array<String>) {
     //on log le lancement de l'application, ça fait plaisir
-    App().logLaunch()
+    App.logger.info("Paper_News_GGH Started")
+
     //recuperation fichier de config
     val cfg:ConfigData = ReadConfigFile().cfg
 
     //lancement fenetre graphique principale
+    App.logger.info("Opening window : main window")
     val mainWindow=MainView(cfg)
-
-    //test ouvrir un lien dans le navigateur
-    //val test3=OpenInBrowser("www.google.com")
+    
 }

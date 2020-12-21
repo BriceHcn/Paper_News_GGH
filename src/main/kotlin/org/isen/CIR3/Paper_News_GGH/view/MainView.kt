@@ -48,7 +48,6 @@ class MainView(cfg: ConfigData) : JFrame(){
 
     //initialisation fenetre graphique
     init{
-        logger.info("Opening window : main window")
         //ajout icone d'application
         this.iconImage = img.image
 
