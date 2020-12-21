@@ -113,10 +113,14 @@ class MainView(cfg: ConfigData) : JFrame(){
     //actionneur pour les articles
     private inner class ArticleButtonClickListener(private var article: ArticleData): ActionListener {
         override fun actionPerformed(e: ActionEvent) {
-            if(e.actionCommand=="OPEN_ARTICLE")
-            logger.info("Opening article : ${article.title}...")
-            val artView:ArticleView= ArticleView(article)
-            isVisible=false
+            if(e.actionCommand=="OPEN_ARTICLE") {
+                logger.info("Opening article : ${article.title}...")
+                val artView: ArticleView = ArticleView(article)
+                isVisible = false
+            }
+            else{
+                logger.info("unknown action")
+            }
         }
     }
 
@@ -124,11 +128,23 @@ class MainView(cfg: ConfigData) : JFrame(){
     private inner class MenuButtonClickListener : ActionListener {
         override fun actionPerformed(e: ActionEvent) {
             when (e.actionCommand) {
-                "QUIT" -> exitProcess(0)
-                "ABOUT_US" -> AboutView()
-                "ISEN_LINK" -> OpenInBrowser("www.isen-mediterranee.fr")
-                "NEWSAPI_LINK" -> OpenInBrowser("https://newsapi.org")
-                else -> logger.info("clic sur un bouton incconu")
+                "QUIT" -> {
+                    logger.info("Paper_News_GGH closed")
+                    exitProcess(0)
+                }
+                "ABOUT_US" -> {
+                    AboutView()
+                    logger.info("about window is opening")
+                }
+                "ISEN_LINK" -> {
+                    OpenInBrowser("www.isen-mediterranee.fr")
+                    logger.info("browser open")
+                }
+                "NEWSAPI_LINK" ->{
+                    OpenInBrowser("https://newsapi.org")
+                    logger.info("browser open")
+                }
+                else -> logger.info("unknown action")
             }
         }
     }

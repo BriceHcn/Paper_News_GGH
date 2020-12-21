@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
     val mainWindow=MainView(cfg)
 
     //pour tester la fenetre article sans refaire toute les requete et donc griller mon apikey
-    //val newsData: NewsSearchData? = NewsSearchEngine(null, cfg.categoryList[0],null).newsResult
+    //val newsData: NewsSearchData? = NewsSearchEngine(null, cfg.categoryList[1],null).newsResult
     //val article:ArticleData= newsData!!.articles[0]
     //val testArticleGui:ArticleView=ArticleView(article)
 }
