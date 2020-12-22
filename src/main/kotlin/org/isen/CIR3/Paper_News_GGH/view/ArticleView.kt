@@ -113,7 +113,7 @@ class ArticleView(article:ArticleData):JFrame() {
         //parametre generale de la fenetre
         title = "${article.title} - Paper News GGH"
         setSize(1000, 600)
-        this.defaultCloseOperation = EXIT_ON_CLOSE
+        this.defaultCloseOperation = EXIT_ON_CLOSE //todo peut etre retourner a l'ecran des titres,personne regarde une seule news puit ferme u_n site
         isVisible = true
     }
 
