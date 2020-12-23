@@ -10,6 +10,7 @@ import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import javax.swing.*
 import kotlin.system.exitProcess
 
@@ -17,8 +18,10 @@ import kotlin.system.exitProcess
 class ArticleView(article:ArticleData):JFrame() {
     companion object : Logging
 
-    //icone application
-    private val img = ImageIcon(System.getProperty("user.dir") + "/src/main/resources/icone.png")//TODO ajouter un image d'icone
+    //icone application avec un petit easter egg
+    private val img:ImageIcon = if(LocalDate.now().monthValue==12 || LocalDate.now().monthValue==1 || LocalDate.now().monthValue==2){
+        ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/iconeChristmas.png") }else{
+        ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/icone.png") }
 
     //ajout menu
     private val menuBar: JMenuBar = JMenuBar()
@@ -112,10 +115,11 @@ class ArticleView(article:ArticleData):JFrame() {
 
         //parametre generale de la fenetre
         title = "${article.title} - Paper News GGH"
-        setSize(1000, 600)
-        this.defaultCloseOperation = EXIT_ON_CLOSE //todo peut etre retourner a l'ecran des titres,personne regarde une seule news puit ferme u_n site
+        setSize(1000, 600)//TODO placer fenetre milieu ecran
+        this.defaultCloseOperation = DISPOSE_ON_CLOSE
         isVisible = true
     }
+
 
     //actionneur pour les boutons en bas d'article
     private inner class ButtonClickListener(private var article: ArticleData): ActionListener {
@@ -126,7 +130,7 @@ class ArticleView(article:ArticleData):JFrame() {
                     logger.info("browser open")
                 }
                 "GET_PDF" ->{
-                    //TODO faire des pdfs
+                    //TODO faire des pdfs ou une autre fonctionalité sympa
                     logger.info("pdf is asked")
                 }
                 else -> logger.info("unknown action")

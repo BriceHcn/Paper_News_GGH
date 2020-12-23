@@ -5,8 +5,8 @@ import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class ImgTools() {
-    fun getArticleImg(urlImg: String?): String {
+class ImgTools {
+   fun getArticleImg(urlImg: String?): String {
         if (urlImg == null) {
             return "defaultArticle.jpg"
         }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.kotlin.Logging
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.GridLayout
+import java.time.LocalDate
 import javax.swing.ImageIcon
 import javax.swing.JFrame
 import javax.swing.JLabel
@@ -13,8 +14,11 @@ class AboutView : JFrame(){
 
     companion object : Logging
 
-    //icone application
-    private val img = ImageIcon(System.getProperty("user.dir") + "/src/main/resources/icone.png")//TODO ajouter un image d'icone
+    //icone application avec un petit easter egg
+    private val img:ImageIcon = if(LocalDate.now().monthValue==12 || LocalDate.now().monthValue==1 || LocalDate.now().monthValue==2){
+        ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/iconeChristmas.png") }else{
+        ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/icone.png") }
+
     //elements fenetre
     private val aboutLayout = GridLayout(1,3)
     private val lucasPanel = JPanel(BorderLayout())
@@ -59,7 +63,7 @@ class AboutView : JFrame(){
 
         //parametre generale de la fenetre
         title = "About Us - Paper News GGH"
-        setSize(700, 280)
+        setSize(700, 280)//TODO placer fenetre milieu ecran
         this.defaultCloseOperation = HIDE_ON_CLOSE
         isVisible = true
     }

@@ -1,8 +1,8 @@
 package org.isen.CIR3.Paper_News_GGH.view
 
 import org.apache.logging.log4j.kotlin.Logging
+import org.isen.CIR3.Paper_News_GGH.App
 import org.isen.CIR3.Paper_News_GGH.data.ArticleData
-import org.isen.CIR3.Paper_News_GGH.data.ConfigData
 import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
 import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
 import org.isen.CIR3.Paper_News_GGH.searchEngine.OpenInBrowser
@@ -11,16 +11,19 @@ import java.awt.Dimension
 import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import java.time.LocalDate
 import javax.swing.*
 import kotlin.system.exitProcess
 
 
-class MainView(cfg: ConfigData) : JFrame(){
+class MainView : JFrame(){
     //logger
     companion object : Logging
 
-    //icone application
-    private val img = ImageIcon(System.getProperty("user.dir") + "/src/main/resources/icone.png")//TODO ajouter un image d'icone
+    //icone application avec un petit easter egg
+    private val img:ImageIcon = if(LocalDate.now().monthValue==12 || LocalDate.now().monthValue==1 || LocalDate.now().monthValue==2){
+         ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/iconeChristmas.png") }else{
+        ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/icone.png") }
 
     //menu
     private val menuBar: JMenuBar = JMenuBar()
@@ -65,7 +68,7 @@ class MainView(cfg: ConfigData) : JFrame(){
 
         //initialisation onglets
 
-        for(cat in cfg.categoryList){
+        for(cat in App.cfg.categoryList){
             //ajout de chaque panneau comprenant les news
             val panel = panelNewsMaker(cat)
             tabbedPane.add(cat,panel)
@@ -75,7 +78,7 @@ class MainView(cfg: ConfigData) : JFrame(){
 
         //parametre generale de la fenetre
         title = "Paper News GGH"
-        setSize(1100, 580)
+        setSize(1100, 580)//TODO placer fenetre milieu ecran
         this.defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
@@ -88,8 +91,8 @@ class MainView(cfg: ConfigData) : JFrame(){
 
         //on creer un tableau de la taille des données
       val tabArticles=JPanel(GridLayout(newsData?.articles?.size!!,1))
-        var articleIterator:Int=0
-        for ( e in newsData.articles){
+
+        for ((articleIterator, e) in newsData.articles.withIndex()){
             //pour chaque article, on affiche le titre et un bouton pour ouvrir cet article
             val ligne = JPanel(BorderLayout())
 
@@ -98,13 +101,12 @@ class MainView(cfg: ConfigData) : JFrame(){
             val button=JButton("See more").apply {
                 //ajout du listener pour chaque boutton avec comme parametre l'article en question
                 actionCommand = "OPEN_ARTICLE"
-                addActionListener(ArticleButtonClickListener(newsData?.articles[ articleIterator]))
+                addActionListener(ArticleButtonClickListener(newsData.articles[ articleIterator]))
             }
-            button.setSize(Dimension(100,5))
+            button.size= Dimension(100,5)
             //ajout bouton voir plus
             ligne.add(button,BorderLayout.LINE_END)
             tabArticles.add(ligne)//on "ajoute" la ligne au tableau
-            articleIterator++
         }
         return tabArticles
     }
@@ -115,8 +117,8 @@ class MainView(cfg: ConfigData) : JFrame(){
         override fun actionPerformed(e: ActionEvent) {
             if(e.actionCommand=="OPEN_ARTICLE") {
                 logger.info("Opening article : ${article.title}...")
-                val artView: ArticleView = ArticleView(article)
-                isVisible = false
+                val artView = ArticleView(article)
+                //isVisible = false
             }
             else{
                 logger.info("unknown action")

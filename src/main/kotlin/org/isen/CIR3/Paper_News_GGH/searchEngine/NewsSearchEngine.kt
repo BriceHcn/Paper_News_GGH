@@ -2,9 +2,9 @@ package org.isen.CIR3.Paper_News_GGH.searchEngine
 
 import com.github.kittinunf.fuel.httpGet
 import org.apache.logging.log4j.kotlin.Logging
-import org.isen.CIR3.Paper_News_GGH.data.ConfigData
+import org.isen.CIR3.Paper_News_GGH.App
 import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
-import java.lang.System.exit
+import kotlin.system.exitProcess
 
 class NewsSearchEngine(
         private val pays:String?,
@@ -17,11 +17,11 @@ class NewsSearchEngine(
         get() {
             return this.searchNewsWithSpecifiedSettings()
         }
-    //lecture fichier de config
-    private val cfg:ConfigData=ReadConfigFile().cfg
+
+
 
     private fun searchNewsWithSpecifiedSettings(): NewsSearchData? {
-        val(request,response,result)="https://newsapi.org/v2/top-headlines?apiKey=${cfg?.apiKey}${getCountry()}${formatedCategory()}${formatedKeywords()}"
+        val(request,response,result)="https://newsapi.org/v2/top-headlines?apiKey=${App.cfg.apiKey}${getCountry()}${formatedCategory()}${formatedKeywords()}"
                 .httpGet().responseObject(NewsSearchData.Deserializer())
 
         logger.info("Request sent - url : ${request.url}")
@@ -31,7 +31,7 @@ class NewsSearchEngine(
         //si limite API atteinte
         if(response.statusCode == 429){
             logger.info("Too much API Request Today ")
-            exit(0)
+            exitProcess(0)
         }
         return result.component1()
     }
@@ -48,6 +48,6 @@ class NewsSearchEngine(
 
     //pour choisir un pays ou prendre celui par defaut(sans rien on a des resultats en chinois,etc..)
     private fun getCountry():String{
-        return if (pays==null) "&country=${cfg?.defaultLanguage}" else "&country=$pays"
+        return if (pays==null) "&country=${App.cfg.defaultLanguage}" else "&country=$pays"
     }
 }
