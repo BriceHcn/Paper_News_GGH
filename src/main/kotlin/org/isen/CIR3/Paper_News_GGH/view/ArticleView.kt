@@ -7,12 +7,12 @@ import org.isen.CIR3.Paper_News_GGH.searchEngine.OpenInBrowser
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.GridLayout
+import java.awt.Toolkit
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import javax.swing.*
-import kotlin.system.exitProcess
 
 
 class ArticleView(article:ArticleData):JFrame() {
@@ -23,23 +23,8 @@ class ArticleView(article:ArticleData):JFrame() {
         ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/iconeChristmas.png") }else{
         ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/icone.png") }
 
-    //ajout menu
-    private val menuBar: JMenuBar = JMenuBar()
-    private val menu1:JMenu = JMenu("Files")
-    private val menu2:JMenu = JMenu("About")
-    private val menuItemQuit: JMenuItem=JMenuItem("Quit").apply {
-        actionCommand = "QUIT"
-        addActionListener(MenuButtonClickListener()) }
-    private val menuItemAboutUs:JMenuItem=JMenuItem("About us").apply {
-        actionCommand = "ABOUT_US"
-        addActionListener(MenuButtonClickListener()) }
-    private val menuItemIsenLink:JMenuItem= JMenuItem("Visit isen-mediterranee.fr").apply {
-        actionCommand = "ISEN_LINK"
-        addActionListener(MenuButtonClickListener()) }
-    private val menuItemLinkNewsAPI:JMenuItem= JMenuItem("visit newsapi.org").apply {
-        actionCommand = "NEWSAPI_LINK"
-        addActionListener(MenuButtonClickListener()) }
-
+    //menu
+    private val menuBar:JMenuBar=Menu().menuBar
 
     //composant fenetre
     //titre, description, contenu, date
@@ -81,16 +66,11 @@ class ArticleView(article:ArticleData):JFrame() {
 
 
     init{
+        logger.info("opening article view window")
         //icone
         this.iconImage = img.image
 
         //initialisation menu
-        menu1.add(menuItemQuit)
-        menuBar.add(menu1)
-        menu2.add(menuItemAboutUs)
-        menu2.add(menuItemIsenLink)
-        menu2.add(menuItemLinkNewsAPI)
-        menuBar.add(menu2)
         this.jMenuBar=menuBar
 
         //layout de la fenetre
@@ -115,11 +95,11 @@ class ArticleView(article:ArticleData):JFrame() {
 
         //parametre generale de la fenetre
         title = "${article.title} - Paper News GGH"
-        setSize(1000, 600)//TODO placer fenetre milieu ecran
+        setSize(1000, 600)
+        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - getWidth()) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - getHeight()) / 2).toInt())
         this.defaultCloseOperation = DISPOSE_ON_CLOSE
         isVisible = true
     }
-
 
     //actionneur pour les boutons en bas d'article
     private inner class ButtonClickListener(private var article: ArticleData): ActionListener {
@@ -132,31 +112,6 @@ class ArticleView(article:ArticleData):JFrame() {
                 "GET_PDF" ->{
                     //TODO faire des pdfs ou une autre fonctionalité sympa
                     logger.info("pdf is asked")
-                }
-                else -> logger.info("unknown action")
-            }
-        }
-    }
-
-    //actionneur pour le menu
-    private inner class MenuButtonClickListener : ActionListener {
-        override fun actionPerformed(e: ActionEvent) {
-            when (e.actionCommand) {
-                "QUIT" -> {
-                    logger.info("Paper_News_GGH closed")
-                    exitProcess(0)
-                }
-                "ABOUT_US" -> {
-                    AboutView()
-                    logger.info("about window is opening")
-                }
-                "ISEN_LINK" -> {
-                    OpenInBrowser("www.isen-mediterranee.fr")
-                    logger.info("browser open")
-                }
-                "NEWSAPI_LINK" ->{
-                    OpenInBrowser("https://newsapi.org")
-                    logger.info("browser open")
                 }
                 else -> logger.info("unknown action")
             }

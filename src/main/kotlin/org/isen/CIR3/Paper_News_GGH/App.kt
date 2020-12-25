@@ -9,6 +9,7 @@ import org.isen.CIR3.Paper_News_GGH.searchEngine.ReadConfigFile
 import org.isen.CIR3.Paper_News_GGH.view.MainView
 
 class App  {
+    //TODO faire des tests pour avoir un max de points
     companion object : Logging {
         //lecture fichier config
         val cfg: ConfigData= ReadConfigFile().cfg
@@ -21,10 +22,9 @@ fun main(args: Array<String>) {
 
 
     //lancement fenetre graphique principale
-    App.logger.info("Opening window : main window")
     val mainWindow=MainView()
 
-    //pour tester la fenetre article sans refaire toute les requete et donc griller mon apikey
+    //pour tester la fenetre article sans refaire toute les requete et donc griller une apikey
     //val newsData: NewsSearchData? = NewsSearchEngine(null, cfg.categoryList[1],null).newsResult
     //val article:ArticleData= newsData!!.articles[0]
     //val testArticleGui:ArticleView=ArticleView(article)

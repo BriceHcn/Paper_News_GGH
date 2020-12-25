@@ -5,6 +5,7 @@ import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Paths
 
+//todo voir pourquoi les jpeg et les jpg ca bug quand on regarde plusieurs article
 class ImgTools {
    fun getArticleImg(urlImg: String?): String {
         if (urlImg == null) {
