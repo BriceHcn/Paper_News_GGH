@@ -14,23 +14,21 @@ class ImgTools {
        Arrays.stream(File(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg").listFiles()).forEach(File::delete);
 
        if (urlImg == null) {
-            return "defaultArticle.jpg"
+            return "imgDefault/defaultArticleImg.jpg"
         }
         else{
-            //tout les cas "bizarre" qu'on a pu rencontré sur les urls
-            url = urlImg.removeSuffix("?v=1")
-            url = urlImg.removeSuffix("?v1")
+            // les cas "bizarre" qu'on a pu rencontré sur les urls
+            url = url?.removeSuffix("?v=1")
+            url = url?.removeSuffix("?v1")
 
-            val filename = url.substringAfterLast('/')
+            val filename = url?.substringAfterLast('/')
             try {
-                URL(url).openStream().use { `in` ->
-                    Files.copy(`in`, Paths.get(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg/$filename"))}
-
+                URL(url).openStream().use { `in` -> Files.copy(`in`, Paths.get(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg/$filename"))}
             //si l'image a un defaut dans le nom, extension etc...
             } catch (e: Exception) {
-                return "defaultArticle.jpg"
+                return "imgDefault/defaultArticleImg.jpg"
             }
-            return filename
+            return filename.toString()
         }
     }
 }
