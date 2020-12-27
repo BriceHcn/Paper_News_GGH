@@ -17,9 +17,7 @@ class NewsSearchEngine(
         get() {
             return this.searchNewsWithSpecifiedSettings()
         }
-
-
-
+    
     private fun searchNewsWithSpecifiedSettings(): NewsSearchData? {
         val(request,response,result)="https://newsapi.org/v2/top-headlines?apiKey=${App.cfg.apiKey}${getCountry()}${formatedCategory()}${formatedKeywords()}"
                 .httpGet().responseObject(NewsSearchData.Deserializer())

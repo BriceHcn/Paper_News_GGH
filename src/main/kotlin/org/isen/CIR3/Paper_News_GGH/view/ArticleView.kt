@@ -58,7 +58,7 @@ class ArticleView(article:ArticleData):JFrame() {
 
     //image
     private val tool:ImgTools=ImgTools()
-    private var imgArt=ImageIcon(System.getProperty("user.dir") + "/src/main/resources/${tool.getArticleImg(article.urlToImage)}")
+    private var imgArt=ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg/${tool.getArticleImg(article.urlToImage)}")
     //private val scaledImgArticle:Image = imgArt.image.getScaledInstance(28, 28, Image.SCALE_DEFAULT)
     private val panelImg:JPanel=JPanel()
     private val labelimg:JLabel= JLabel(imgArt,JLabel.CENTER)

@@ -4,43 +4,33 @@ import java.io.File
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.*
 
-//todo voir pourquoi les jpeg et les jpg ca bug quand on regarde plusieurs article
 class ImgTools {
    fun getArticleImg(urlImg: String?): String {
-        if (urlImg == null) {
+        var url = urlImg
+
+       //on vide le dossiers des images
+       Arrays.stream(File(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg").listFiles()).forEach(File::delete);
+
+       if (urlImg == null) {
             return "defaultArticle.jpg"
         }
         else{
-        if (urlImg.endsWith("?v=1")) {
-            urlImg.removeSuffix("?v=1")
-            println(urlImg)
-        }
-        //s'il n'y a pas d'image dans notre articel
+            //tout les cas "bizarre" qu'on a pu rencontré sur les urls
+            url = urlImg.removeSuffix("?v=1")
+            url = urlImg.removeSuffix("?v1")
 
-
-            val filename = urlImg.substringAfterLast('/')
-            val img =File(System.getProperty("user.dir") + "/src/main/resources/imgArticle.${filename.substringAfterLast('.')}")
-            if (img.exists()) {
-                img.delete()
-            }
-
+            val filename = url.substringAfterLast('/')
             try {
-                URL(urlImg).openStream().use { `in` ->
-                    Files.copy(
-                        `in`,
-                        Paths.get(
-                            System.getProperty("user.dir") + "/src/main/resources/imgArticle.${
-                                filename.substringAfterLast('.')
-                            }"
-                        )
-                    )
-                }
-                //si l'image a un defaut dans le nom, extension etc...
+                URL(url).openStream().use { `in` ->
+                    Files.copy(`in`, Paths.get(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg/$filename"))}
+
+            //si l'image a un defaut dans le nom, extension etc...
             } catch (e: Exception) {
                 return "defaultArticle.jpg"
             }
-            return "imgArticle.${filename.substringAfterLast('.')}"
+            return filename
         }
     }
 }
