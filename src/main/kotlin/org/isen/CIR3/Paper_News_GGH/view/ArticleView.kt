@@ -96,7 +96,7 @@ class ArticleView(article:ArticleData):JFrame() {
         //parametre generale de la fenetre
         title = "${article.title} - Paper News GGH"
         setSize(1000, 600)
-        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - getWidth()) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - getHeight()) / 2).toInt())
+        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - width) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - height) / 2).toInt())
         this.defaultCloseOperation = DISPOSE_ON_CLOSE
         isVisible = true
     }

@@ -11,7 +11,7 @@ class ImgTools {
         var url = urlImg
 
        //on vide le dossiers des images
-       Arrays.stream(File(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg").listFiles()).forEach(File::delete);
+       Arrays.stream(File(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg").listFiles()).forEach(File::delete)
 
        if (urlImg == null) {
             return "imgDefault/defaultArticleImg.jpg"

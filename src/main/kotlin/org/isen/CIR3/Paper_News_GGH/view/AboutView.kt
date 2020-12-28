@@ -70,7 +70,7 @@ class AboutView : JFrame(){
         //parametre generale de la fenetre
         title = "About Us - Paper News GGH"
         setSize(700, 280)
-        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - getWidth()) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - getHeight()) / 2).toInt())
+        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - width) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - height) / 2).toInt())
         this.defaultCloseOperation = HIDE_ON_CLOSE
         isVisible = true
     }

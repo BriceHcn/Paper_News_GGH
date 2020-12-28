@@ -37,6 +37,7 @@ class MainView : JFrame(){
     //initialisation fenetre graphique
     init{
         logger.info("Launching main view window")
+
         //ajout icone d'application
         this.iconImage = img.image
 
@@ -59,7 +60,7 @@ class MainView : JFrame(){
         //parametre generale de la fenetre
         title = "Paper News GGH"
         setSize(1100, 580)
-        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - getWidth()) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - getHeight()) / 2).toInt())
+        setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - width) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - height) / 2).toInt())
         this.defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
