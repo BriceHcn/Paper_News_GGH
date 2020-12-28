@@ -4,7 +4,7 @@ import java.util.*
 
 data class ArticleData(
     val source:SourceData,
-    val author:String?,
+    val author:String,
     val title:String,
     val description:String,
     val url:String,

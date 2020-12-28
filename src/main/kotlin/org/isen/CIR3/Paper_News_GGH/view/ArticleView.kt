@@ -28,6 +28,7 @@ class ArticleView(article:ArticleData):JFrame() {
 
     //composant fenetre
     //titre, description, contenu, date
+    //todo handle null
     private val labelTitre:JLabel= JLabel(
         String.format("<html><body style=\"font-weight:bold;  font-size:20px;  text-align: center;  text-justify: inter-word;\">%s</body></html>",article.title),JLabel.CENTER)
     private val labelDesc:JLabel= JLabel(

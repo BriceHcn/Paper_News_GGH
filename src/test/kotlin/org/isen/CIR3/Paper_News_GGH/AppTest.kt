@@ -3,12 +3,13 @@
  */
 package org.isen.CIR3.Paper_News_GGH
 
+import org.apache.logging.log4j.kotlin.logger
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 class AppTest {
-    @Test fun testAppHasAGreeting() {
-        //val classUnderTest = App()
-        //assertNotNull(classUnderTest.greeting, "app should have a greeting")
+    @Test fun testAppHasALogger() {
+        val classUnderTest = App()
+        assertNotNull(classUnderTest.logger(), "app should have a logger")
     }
 }
