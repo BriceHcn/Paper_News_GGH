@@ -1,5 +1,6 @@
 package org.isen.CIR3.Paper_News_GGH.view
 
+import org.apache.logging.log4j.kotlin.Logging
 import org.isen.CIR3.Paper_News_GGH.searchEngine.OpenInBrowser
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
@@ -9,9 +10,11 @@ import javax.swing.JMenuItem
 import kotlin.system.exitProcess
 
 class Menu {
+    companion object : Logging
      val menuBar: JMenuBar = JMenuBar()
     private val menu1: JMenu = JMenu("Files")
     private val menu2: JMenu = JMenu("About")
+    private val menu3: JMenu = JMenu("Favorites")
     private val menuItemQuit: JMenuItem = JMenuItem("Quit").apply {
         actionCommand = "QUIT"
         addActionListener(MenuButtonClickListener()) }
@@ -25,6 +28,10 @@ class Menu {
         actionCommand = "NEWSAPI_LINK"
         addActionListener(MenuButtonClickListener()) }
 
+    private val menuItemFavorites: JMenuItem = JMenuItem("My favorites news").apply {
+        actionCommand = "FAVORITE_VIEW"
+        addActionListener(MenuButtonClickListener()) }
+
     init{
         //initialisation menu
         menu1.add(menuItemQuit)
@@ -33,6 +40,8 @@ class Menu {
         menu2.add(menuItemIsenLink)
         menu2.add(menuItemLinkNewsAPI)
         menuBar.add(menu2)
+        menu3.add(menuItemFavorites)
+        menuBar.add(menu3)
     }
 
     //actionneur pour le menu
@@ -40,22 +49,24 @@ class Menu {
         override fun actionPerformed(e: ActionEvent) {
             when (e.actionCommand) {
                 "QUIT" -> {
-                    MainView.logger.info("Paper_News_GGH closed")
+                    logger.info("Paper_News_GGH closed")
                     exitProcess(0)
                 }
                 "ABOUT_US" -> {
                     AboutView()
-                    MainView.logger.info("about window is opening")
                 }
                 "ISEN_LINK" -> {
                     OpenInBrowser("www.isen-mediterranee.fr")
-                    MainView.logger.info("browser open")
+                    logger.info("browser open")
                 }
                 "NEWSAPI_LINK" ->{
                     OpenInBrowser("https://newsapi.org")
-                    MainView.logger.info("browser open")
+                    logger.info("browser open")
                 }
-                else -> MainView.logger.info("unknown menu action")
+                "FAVORITE_VIEW" ->{
+                    FavoriteView(null)
+                }
+                else -> logger.info("unknown menu action")
             }
         }
     }

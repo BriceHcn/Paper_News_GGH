@@ -20,5 +20,5 @@ fun main(args: Array<String>) {
     App.logger.info("Paper_News_GGH Started")
 
     //lancement fenetre graphique principale
-    val mainWindow=MainView()
+    MainView()
 }

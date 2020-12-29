@@ -99,7 +99,7 @@ class MainView : JFrame(){
         override fun actionPerformed(e: ActionEvent) {
             if(e.actionCommand=="OPEN_ARTICLE") {
                 logger.info("Opening article : ${article.title}...")
-                val artView = ArticleView(article)
+                ArticleView(article)
             }
             else{
                 logger.info("unknown action")

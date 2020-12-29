@@ -1,4 +1,3 @@
-import org.apache.logging.log4j.kotlin.logger
 import org.isen.CIR3.Paper_News_GGH.data.ArticleData
 import org.isen.CIR3.Paper_News_GGH.data.SourceData
 import java.util.*
@@ -13,11 +12,11 @@ class ArticleDataTest {
     }
     @Test fun testArticleDataSourceIdNotModified() {
         val source = SourceData("10","name")
-        assertEquals(source.id,classUnderTest.source.id,"Article data should have source id")
+        assertEquals(source.id, classUnderTest.source?.id,"Article data should have source id")
     }
     @Test fun testArticleDataSourceNameNotModified() {
         val source = SourceData("10","name")
-        assertEquals(source.name,classUnderTest.source.name,"Article data should have source name")
+        assertEquals(source.name, classUnderTest.source?.name,"Article data should have source name")
     }
     @Test fun testArticleDataTitleNotModified() {
         assertEquals("title",classUnderTest.title,"Article data should have a title")

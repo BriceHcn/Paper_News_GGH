@@ -38,7 +38,7 @@ class ArticleView(article:ArticleData):JFrame() {
     //source, auteur,date
     private val publishedAtString :String = SimpleDateFormat("d MMM yyyy HH:mm").format(article.publishedAt)
     private val labelDetails:JLabel= JLabel(
-        String.format("<html><body style=\"font-weight:bold;  font-size:12px;  color:red;  text-align: justify;  text-justify: inter-word;\">%s</body></html>","published on the $publishedAtString, on ${article.source.name} ${if (article.author != null) " written by ${article.author}" else ""}"),JLabel.CENTER)
+        String.format("<html><body style=\"font-weight:bold;  font-size:12px;  color:red;  text-align: justify;  text-justify: inter-word;\">%s</body></html>","published on the $publishedAtString, on ${article.source?.name} ${if (article.author != null) " written by ${article.author}" else ""}"),JLabel.CENTER)
 
 
     //conteneur info
@@ -50,8 +50,8 @@ class ArticleView(article:ArticleData):JFrame() {
         actionCommand = "SEE_ONLINE"
         addActionListener(ButtonClickListener(article))
     }
-    private val btnGetPdf:JButton=JButton("Get this news in pdf").apply{
-        actionCommand = "GET_PDF"
+    private val btnGetPdf:JButton=JButton("Add this favorites").apply{
+        actionCommand = "ADD_FAVORITE"
         addActionListener(ButtonClickListener(article))
     }
     private val panelBouton:JPanel= JPanel(GridLayout(1,2))
@@ -107,12 +107,12 @@ class ArticleView(article:ArticleData):JFrame() {
         override fun actionPerformed(e: ActionEvent) {
             when(e.actionCommand){
                 "SEE_ONLINE" ->{
-                    OpenInBrowser(article.url)
-                    logger.info("browser open")
+                    article.url?.let { OpenInBrowser(it) }
+                    logger.info("browser opening")
                 }
-                "GET_PDF" ->{
+                "ADD_FAVORITE" ->{
                     //TODO faire des pdfs ou une autre fonctionalité sympa
-                    logger.info("pdf is asked")
+                    logger.info("adding articles to favorites")
                 }
                 else -> logger.info("unknown action")
             }
