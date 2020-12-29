@@ -21,4 +21,10 @@ fun main(args: Array<String>) {
 
     //lancement fenetre graphique principale
     MainView()
+
+    /*
+    val test:FavoritesHandler= FavoritesHandler()
+    val newsData: NewsSearchData? = NewsSearchEngine(null,"general" ,null).newsResult
+    test.addFavoriteToFile(newsData?.articles?.get(2)!!)
+     */
 }

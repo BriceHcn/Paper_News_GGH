@@ -109,6 +109,7 @@ class ArticleView(article:ArticleData):JFrame() {
                 "SEE_ONLINE" ->{
                     article.url?.let { OpenInBrowser(it) }
                     logger.info("browser opening")
+
                 }
                 "ADD_FAVORITE" ->{
                     //TODO faire des pdfs ou une autre fonctionalité sympa
