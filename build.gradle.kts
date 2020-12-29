@@ -24,7 +24,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
     //hoplite pour le fichier de config
     implementation ("com.sksamuel.hoplite:hoplite-core:1.3.10")
     implementation ("com.sksamuel.hoplite:hoplite-yaml:1.3.10")

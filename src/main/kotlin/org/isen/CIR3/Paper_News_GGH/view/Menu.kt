@@ -27,10 +27,12 @@ class Menu {
     private val menuItemLinkNewsAPI: JMenuItem = JMenuItem("visit newsapi.org").apply {
         actionCommand = "NEWSAPI_LINK"
         addActionListener(MenuButtonClickListener()) }
-
+    /*
     private val menuItemFavorites: JMenuItem = JMenuItem("My favorites news").apply {
         actionCommand = "FAVORITE_VIEW"
         addActionListener(MenuButtonClickListener()) }
+
+     */
 
     init{
         //initialisation menu
@@ -40,8 +42,8 @@ class Menu {
         menu2.add(menuItemIsenLink)
         menu2.add(menuItemLinkNewsAPI)
         menuBar.add(menu2)
-        menu3.add(menuItemFavorites)
-        menuBar.add(menu3)
+        //menu3.add(menuItemFavorites)
+        //menuBar.add(menu3)
     }
 
     //actionneur pour le menu
@@ -63,9 +65,11 @@ class Menu {
                     OpenInBrowser("https://newsapi.org")
                     logger.info("browser open")
                 }
+                /*
                 "FAVORITE_VIEW" ->{
                     FavoriteView(null)
                 }
+                 */
                 else -> logger.info("unknown menu action")
             }
         }

@@ -1,7 +1,5 @@
 package org.isen.CIR3.Paper_News_GGH.searchEngine
 
-import com.google.gson.Gson
-
 import org.isen.CIR3.Paper_News_GGH.data.ArticleData
 import java.io.File
 import java.io.InputStream
@@ -13,11 +11,13 @@ class FavoritesHandler {
         val inputString = inputStream.bufferedReader().use { it.readText() }
          //println(inputString)
 
+        //val obj = Json.decodeFromString<ArticleData>(inputString)
+        //println(obj.title)
+
         return null
     }
 
     fun addFavoriteToFile(article: ArticleData): Int {
-        File(System.getProperty("user.dir") + "/src/main/resources/favorite.json").printWriter().use { out -> out.println(article.toString()) }
         return 1
     }
 
