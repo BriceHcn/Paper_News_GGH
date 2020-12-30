@@ -11,8 +11,6 @@ class FavoritesHandler {
         val inputStream: InputStream = File(System.getProperty("user.dir") + "/src/main/resources/favorite.json").inputStream()
         val inputString = inputStream.bufferedReader().use { it.readText() }
         //println(inputString)
-
-
         return null
     }
 

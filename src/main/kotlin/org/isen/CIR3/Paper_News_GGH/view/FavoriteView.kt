@@ -8,7 +8,7 @@ import javax.swing.ImageIcon
 import javax.swing.JFrame
 import javax.swing.JMenuBar
 
-class FavoriteView(favArticle: List<ArticleData>?) : JFrame(){
+class FavoriteView(favArticle: List<ArticleData>) : JFrame(){
 
     companion object : Logging
 

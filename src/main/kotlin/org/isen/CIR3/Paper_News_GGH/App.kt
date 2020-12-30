@@ -24,10 +24,4 @@ fun main(args: Array<String>) {
 
     //lancement fenetre graphique principale
     MainView()
-
-    /*
-    val newsData: NewsSearchData? = NewsSearchEngine(null,"general" ,null).newsResult
-    val test = FavoritesHandler()
-    test.getAllFavoritesFromFile()
-     */
 }

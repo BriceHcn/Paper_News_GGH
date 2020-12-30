@@ -28,17 +28,16 @@ class ArticleView(article:ArticleData):JFrame() {
 
     //composant fenetre
     //titre, description, contenu, date
-    //todo handle null
     private val labelTitre:JLabel= JLabel(
-        String.format("<html><body style=\"font-weight:bold;  font-size:20px;  text-align: center;  text-justify: inter-word;\">%s</body></html>",article.title),JLabel.CENTER)
+        String.format("<html><body style=\"font-weight:bold;  font-size:20px;  text-align: center;  text-justify: inter-word;\">%s</body></html>", article.title ?: "unknown"),JLabel.CENTER)
     private val labelDesc:JLabel= JLabel(
-        String.format("<html><body style=\"text-align: center;  text-justify: inter-word;\">%s</body></html>",article.description),JLabel.CENTER)
+        String.format("<html><body style=\"text-align: center;  text-justify: inter-word;\">%s</body></html>",article.description ?: "unknown"),JLabel.CENTER)
     private val labelContent:JLabel= JLabel(
-        String.format("<html><body style=\"text-align: center;  text-justify: inter-word;\">%s</body></html>",article.content),JLabel.CENTER)
+        String.format("<html><body style=\"text-align: center;  text-justify: inter-word;\">%s</body></html>", article.content?.substringBefore("[+") ?: (article.content ?: "unknown")),JLabel.CENTER)
     //source, auteur,date
-    private val publishedAtString :String = SimpleDateFormat("d MMM yyyy HH:mm").format(article.publishedAt)
+    private val publishedAtString :String? = SimpleDateFormat("d MMM yyyy HH:mm").format(article.publishedAt)
     private val labelDetails:JLabel= JLabel(
-        String.format("<html><body style=\"font-weight:bold;  font-size:12px;  color:red;  text-align: justify;  text-justify: inter-word;\">%s</body></html>","published on the $publishedAtString, on ${article.source?.name} ${if (article.author != null) " written by ${article.author}" else ""}"),JLabel.CENTER)
+        String.format("<html><body style=\"font-weight:bold;  font-size:12px;  color:red;  text-align: justify;  text-justify: inter-word;\">%s</body></html>","published on the ${publishedAtString ?: "unknown"} , on ${article.source?.name ?:"unknown"} ${if (article.author==null) "" else "written by ${article.author}"}"),JLabel.CENTER)
 
 
     //conteneur info
@@ -50,8 +49,8 @@ class ArticleView(article:ArticleData):JFrame() {
         actionCommand = "SEE_ONLINE"
         addActionListener(ButtonClickListener(article))
     }
-    private val btnGetPdf:JButton=JButton("Add this favorites").apply{
-        actionCommand = "ADD_FAVORITE"
+    private val btnFeature:JButton=JButton("Incoming feature").apply{
+        actionCommand = "FEATURE"
         addActionListener(ButtonClickListener(article))
     }
     private val panelBouton:JPanel= JPanel(GridLayout(1,2))
@@ -60,7 +59,6 @@ class ArticleView(article:ArticleData):JFrame() {
     //image
     private val tool:ImgTools=ImgTools()
     private var imgArt=ImageIcon(System.getProperty("user.dir") + "/src/main/resources/photo/ArticleImg/${tool.getArticleImg(article.urlToImage)}")
-    //private val scaledImgArticle:Image = imgArt.image.getScaledInstance(28, 28, Image.SCALE_DEFAULT)
     private val panelImg:JPanel=JPanel()
     private val labelimg:JLabel= JLabel(imgArt,JLabel.CENTER)
 
@@ -91,12 +89,12 @@ class ArticleView(article:ArticleData):JFrame() {
 
         //ajout bouton
         panelBouton.add(btnSeeOnline)
-        panelBouton.add(btnGetPdf)
+        //panelBouton.add(btnFeature)
         panelInfo.add(panelBouton)
 
         //parametre generale de la fenetre
         title = "${article.title} - Paper News GGH"
-        setSize(1000, 600)
+        setSize(1000, 700)
         setLocation(((Toolkit.getDefaultToolkit().screenSize.getWidth() - width) / 2).toInt(), ((Toolkit.getDefaultToolkit().screenSize.getHeight() - height) / 2).toInt())
         this.defaultCloseOperation = DISPOSE_ON_CLOSE
         isVisible = true
@@ -111,9 +109,9 @@ class ArticleView(article:ArticleData):JFrame() {
                     logger.info("browser opening")
 
                 }
-                "ADD_FAVORITE" ->{
-                    //TODO faire des pdfs ou une autre fonctionalité sympa
-                    logger.info("adding articles to favorites")
+                "FEATURE" ->{
+                    //TODO faire une autre fonctionalité sympa
+                    logger.info("")
                 }
                 else -> logger.info("unknown action")
             }
