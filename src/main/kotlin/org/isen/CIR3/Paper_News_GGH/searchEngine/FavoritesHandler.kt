@@ -4,15 +4,14 @@ import org.isen.CIR3.Paper_News_GGH.data.ArticleData
 import java.io.File
 import java.io.InputStream
 
+
 class FavoritesHandler {
 
     fun getAllFavoritesFromFile(): List<ArticleData>? {
         val inputStream: InputStream = File(System.getProperty("user.dir") + "/src/main/resources/favorite.json").inputStream()
         val inputString = inputStream.bufferedReader().use { it.readText() }
-         //println(inputString)
+        //println(inputString)
 
-        //val obj = Json.decodeFromString<ArticleData>(inputString)
-        //println(obj.title)
 
         return null
     }

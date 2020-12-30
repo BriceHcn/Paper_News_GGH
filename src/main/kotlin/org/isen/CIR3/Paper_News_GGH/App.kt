@@ -5,7 +5,9 @@ package org.isen.CIR3.Paper_News_GGH
 
 import org.apache.logging.log4j.kotlin.Logging
 import org.isen.CIR3.Paper_News_GGH.data.ConfigData
+import org.isen.CIR3.Paper_News_GGH.data.NewsSearchData
 import org.isen.CIR3.Paper_News_GGH.searchEngine.FavoritesHandler
+import org.isen.CIR3.Paper_News_GGH.searchEngine.NewsSearchEngine
 import org.isen.CIR3.Paper_News_GGH.searchEngine.ReadConfigFile
 import org.isen.CIR3.Paper_News_GGH.view.MainView
 
@@ -23,4 +25,9 @@ fun main(args: Array<String>) {
     //lancement fenetre graphique principale
     MainView()
 
+    /*
+    val newsData: NewsSearchData? = NewsSearchEngine(null,"general" ,null).newsResult
+    val test = FavoritesHandler()
+    test.getAllFavoritesFromFile()
+     */
 }

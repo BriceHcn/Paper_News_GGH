@@ -8,8 +8,4 @@ data class ArticleData(
     val url:String?,
     val urlToImage: String?,
     val publishedAt: Date?,
-    val content:String?){
-
-
-
-}
+    val content:String?)

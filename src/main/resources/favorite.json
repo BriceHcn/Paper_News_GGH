@@ -1,6 +1,10 @@
 [
   {
-    "source": {"id":null,"name":"BFMTV"},
+    "source":
+    {
+      "id":null,
+      "name":"BFMTV"
+    },
     "author":null,
     "title":"EN DIRECT - Covid-19: 53.135 nouveaux cas recensés en 24h au Royaume-Uni, un record - BFMTV",
     "description":"Très inquiétante par endroits, comme par exemple dans la région Grand Est, la situation sanitaire liée au Covid-19 a motivé la tenue d'un Conseil de défense ce mardi. On ne sait pas encore si de nouvelles mesures ont été décidées, mais l'éventualité de reconf…",
