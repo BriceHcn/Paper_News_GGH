@@ -105,12 +105,13 @@ class ArticleView(article:ArticleData):JFrame() {
         override fun actionPerformed(e: ActionEvent) {
             when(e.actionCommand){
                 "SEE_ONLINE" ->{
+                    //ouverture d'un article
                     article.url?.let { OpenInBrowser(it) }
                     logger.info("browser opening")
 
                 }
                 "FEATURE" ->{
-                    //TODO faire une autre fonctionalité sympa
+                    //Si on veut ajouter une fonctionalité supplementaires
                     logger.info("")
                 }
                 else -> logger.info("unknown action")
